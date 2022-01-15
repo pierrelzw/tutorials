@@ -70,7 +70,7 @@
 
 ![image-20211212214843826](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/alfred_create.png)
 
-3. 创建快捷键（HotKey）: 空白区域点击右键：Triggers -> Hotkey ，设置`Argument`为`Selection in macOS`（表示光标选择的内容将作为这个 workflow 的输入参数）
+3. 创建快捷键（HotKey）: 空白区域点击右键：Triggers -> Hotkey ，设置快捷键（我这里是cmd+shift+alt+p），然后设置`Argument`为`Selection in macOS`（表示光标选择的内容将作为这个 workflow 的输入参数）
 
 ![image-20211212215208459](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/7SOir6wUmvN92ao-20211219174449907.png)
 

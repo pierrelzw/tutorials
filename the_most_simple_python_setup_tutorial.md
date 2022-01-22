@@ -87,7 +87,9 @@
 
 ![image-20220115235055660](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/fork_finished.png)
 
-5. 用 git clone 下载书籍：`git clone [上一步复制的地址]`
+5. 打开terminal
+6. 输入以下命令代码下载书籍：
+用 git clone 下载书籍：`git clone [上一步复制的地址]`
 
 可能的错误
 
@@ -98,6 +100,8 @@
 最好是能按照 [共读学编程活动说明](https://s7wabnxfe5.feishu.cn/docs/doccnzs4dwITfISraEbOSbS8FyQ#hVSvEw) 所说，安装科学上网工具后运行。否则，就只能多次重复运行同样的命令看运气了。
 
 >  小技巧：多次运行同样命令并不需要每次都手动输入：在命令里通过键盘“上”、“下” 箭头，可以找到之前运行过的命令
+
+
 
 ## 参考资料
 

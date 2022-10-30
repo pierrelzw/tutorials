@@ -1,10 +1,24 @@
-# 给普通人的英文书高效阅读教程
+# 如何借助DeepL阅读英文原版书？
 
 [TOC]
 
-今年一度想开始认真读几本原版书，但是看到整本书都是英文字母，内心还是不免发怵。买来的纸质书、电脑里的 pdf，就和当年背的英语词汇书一样，长久地停在前几页。
+上了大学，准确来说，是上硕士课程开始，我突然发现一件事，所以
 
-最近，“笑来” 公众号发了一篇文章 [《当翻译竟然变成了文本编辑》](https://mp.weixin.qq.com/s?__biz=MzIwNzA0NjExNw==&mid=2247489038&idx=1&sn=25bca47f88e3e5759512fa00f962e19c&scene=21#wechat_redirect)，还在 github 开源了他基于 deepL 翻译英文书籍的工作流。
+我的研究领域的论文，能看的全是英文，我一搜索顶级会议，才知道 这些都是国际会议，来自不同的国家的人要相互交流，只能用目前被使用最广泛的语言 —— 英语。
+
+于是，最后的结果就是。专业领域的知识，大家只能去读英文资料
+
+> 从今往后，非虚构类书籍只读英文原版。
+
+去年开始，因为笑来老师的提醒，我开始尝试阅读英文原版书。于是，慢慢地，我开始体会他的另一句话：
+
+> 好书这东西，能读原版的话就一定要直接读原版，千万不要读译本——被坑了都不知道自己是怎样被坑的，更不知道自己被坑成了什么样子…… 
+
+书这种东西，能看原版就尽量看原版，否则你被
+
+一度想开始认真读几本原版书，但是看到整本书都是英文字母，内心还是不免发怵。买来的纸质书、电脑里的 pdf，就和当年背的英语词汇书一样，长久地停在前几页。
+
+2021年，“笑来” 公众号发表了一篇文章 [《当翻译竟然变成了文本编辑》](https://mp.weixin.qq.com/s?__biz=MzIwNzA0NjExNw==&mid=2247489038&idx=1&sn=25bca47f88e3e5759512fa00f962e19c&scene=21#wechat_redirect)，还在 github 开源了他基于 deepL 翻译英文书籍的工作流。
 
 这篇文章给了我一个新思路：我直接边看边翻译，是不是能够帮助我读原版书？
 
@@ -45,38 +59,58 @@
 
 第一件事看起来似乎比较简单。因为 deepL 可以设置快捷键（比如我设置的是两次 cmd+c），允许用户快速调用 deepL 并翻译剪切板里的内容。更为可贵的是，deepL 还支持把翻译结果通过 `Insert to xxx`传回你正在使用的编辑器（`xxx`)。
 
+【插入图片】
+
 但是，这需要一次鼠标操作：移动对准+点击。如果只是翻译一段话，那一次这样的操作并没什么负担，但是如果你要翻译的是一本书……事实证明，我点了 5 次我就不想再点那个按钮了。
+
+
 
 而第二件事，看起来似乎更加复杂，难以想象要手动一步一步、对每段中文文本都这么处理。最好的方式当然是采用脚本。
 
 
 ## 二、如何实现？
 
-> 工作环境：一台macbook电脑
-
 ### 1. 准备工作
 
-1. 下载并安装 [VSCcode](https://code.visualstudio.com/)
-2. 下载并安装 [DeepL](https://code.visualstudio.com/)
-3. 下载、安装并购买 Alfred，可以参考 `https://github.com/xiaolai/apple-computer-literacy/blob/main/alfred.md`
+1. 一台 Macbook 电脑
+2. 下载并安装 [VSCode](https://code.visualstudio.com/) (https://code.visualstudio.com/)
+3. 下载并安装 [DeepL](https://www.deepl.com/en/app/) (https://www.deepl.com/en/app/)
+4. 下载、安装并购买 Alfred，可以参考 `https://github.com/xiaolai/apple-computer-literacy/blob/main/alfred.md`
+5. 学习如何打开 terminal（比较简单可上网搜索）
 
-### 2. 设置Alfred workflow
+### 2. 设置 Alfred workflow
 
-1. 成功安装了 alfred 以后，可以直接用快捷键（我设置的是`cmd+space`）调用它。然后，输入 alfred，第一个就是 alfred 的设置界面，直接回车打开
+1. 打开  Alfred Preferences
+
+快捷键（alt+space）> 输入 alfred（不用输入完整的）> show Alfred Preferences，回车打开
 
 ![image-20211212213332513](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/alfred_open.png)
 
-2. 点击左下角的 + ，创建一个空的 workflow（blank workflow） 
+2. 创建新的 workflow
 
-![image-20211212214843826](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/alfred_create.png)
+![image-20221030184024170](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184024170.png)
 
-3. 创建快捷键（HotKey）: 空白区域点击右键：Triggers -> Hotkey ，设置快捷键（我这里是cmd+shift+alt+p），然后设置`Argument`为`Selection in macOS`（表示光标选择的内容将作为这个 workflow 的输入参数）
+![image-20221030184053726](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184053726.png)
 
-![image-20211212215208459](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/7SOir6wUmvN92ao-20211219174449907.png)
+![image-20221030184158287](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184158287.png)
+
+3. 创建快捷键（HotKey）
+
+   空白区域点击右键 > Triggers > Hotkey 
+
+![image-20221030184320717](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184320717.png)
+
+设置快捷键（我这里是 `cmd+shift+alt+j` ），然后设置 `Argument` 为 `Selection in macOS`（表示光标选择的内容将作为这个 workflow 的输入参数）
+
+![image-20221030184419558](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184419558.png)
+
+
 
 4. 创建快捷键关联的动作（Actions） -> Run NSAppleScript
 
 ![image-20211212215652068](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/b42L3UakAHzdOmi.png)
+
+![image-20221030184548573](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184548573.png)
 
 5. 把下面的代码粘贴进去，替换里面的内容
 
@@ -94,7 +128,7 @@ tell application "Visual Studio Code"
 		key code 8 using command down
 	end tell
 end tell
--- 以上是 cmd+l 选中当前整行；而后连续两次 cmd+c 将选中文字发给 DeepL
+-- 以上是 cmd+l 选中当前整行/段；而后连续两次 cmd+c 将选中文字发给 DeepL
 
 delay 5
 
@@ -133,6 +167,12 @@ end tell
 end alfred_script
 ```
 
+![image-20221030184928293](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030184928293.png)
+
+【点击cache，运行会快一些？】
+
+
+
 这里的脚本和笑来老师原版的脚本有小小的不同，原版的 VSCode 空 2 行实现可能有点小问题：翻译结果会直接粘贴在英文内容下方，没有空一行。这会导致 github 网页显示有问题 —— 中英文连一块了，如下图红框所示，而我实际想要的是绿框里的排版。
 
 ![image-20211212220536195](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/hwDjtqIXgHKlE9S.png)
@@ -141,11 +181,13 @@ end alfred_script
 
 ![image-20211219174602469](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/image-20211219174602469.png)
 
-这里`key code 36`对应的是回车键`Return`，表示换行；`key code 124`对应向右箭头`RightArrow`，所以 `key code 124 using command down` 是`cmd + 向右箭头`，在 VSCode 里其实就是移动光标到到本行末尾的快捷键；` —— `表示注释，不会被运行。
+- `key code 36`对应的是回车键`Return`，表示换行；
+- `key code 124`对应向右箭头`RightArrow`，所以 `key code 124 using command down` 是`cmd + 向右箭头`，在 VSCode 里其实就是移动光标到到本行末尾的快捷键；
+- ` —— `表示注释，同行 ` —— ` 之后的内容不会被程序执行。
 
-6. 把两个图标连上，表示快捷键与后面的操作关联。做完这一步，就完成 alfred workflow 设置
+6. 在 alfred 设置页面把两个图标连上，表示快捷键与后面的操作关联。做完这一步，就完成 alfred workflow 设置
 
-![image-20211212221603532](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/QDNJeqPOIfC6MdW.png)
+![image-20221030185041647](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030185041647.png)
 
 7. 用 VSCode 打开一个文档，使用上面设置的快捷键测试。没有错误的话，它能够实现下面这些步骤：
 
@@ -155,68 +197,115 @@ end alfred_script
 
 注意：第 2-3 步需要几秒钟来实现，在等待过程中，不要移动光标，否则粘贴位置会出错。这个时候，我一般会先看看原文的内容。因为英文阅读速度比较慢，所以足够上面的 workflow 运行完成了。然后，我会重新再对照翻译结果逐句看一遍，如果发现有明显的错误，就顺手改一下。
 
+
+
 ### 3. VSCode设置中文排版快捷键
 
 1. 安装 ssmacro 插件
 
 - 打开 VSCode ，点击下图图标或者用`cmd+shift+x`打开 extension 页面
 
+  【图标框起来】
+
+  ![image-20221030190914309](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030190914309.png)
+
 - 输入 ssmacro ，点击 install，完成安装
 
-<img src="https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/yMhKfG4SbnmLYc6.png" alt="image-20211212223942361" style="zoom:33%;" />
+  ![image-20221030190940917](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030190940917.png)
 
 
 
-2. 在 VSCode 里，摁下 “快速启动快捷键” `cmd + shift + p`后输入keyboard，按照下图所示，可以打开VSCode快捷键配置文件 key_bindings.json 
+2. 设置快捷键
 
-![image-20211212223354988](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/1fYElvPkwmReXo6.png)
+   打开 VSCode，快捷键  `cmd+shift+p`  > 输入 keyboard > 选择 `Open Keyboard Shortcuts(JSON)` > 回车，一个名为 keybings.json 的文件会被自动打开
 
-3. 中文排版快捷键配置
+![image-20221030201122284](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030201122284.png)
 
-   把下面的内容加入中括号`[ ]`之间，和其他用大括号`{}`包含的内容用`,`隔开
+3. 排版快捷键设置
+
+![image-20221030201208564](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030201208564.png)
+
+把下面的内容加入中括号`[ ]`之间，如果有其他用大括号`{}`包含的内容，用逗号 `,` 隔开
 
 ```
 {
-	"key": "ctrl+alt+cmd+o",
+	"key": "ctrl+alt+cmd+o", 
 	"command": "ssmacro.macro",
 	"args": {"file": "regex.json"},
 	"when": "editorTextFocus"
 }
 ```
 
-上面这段配置的意思其实很简单：设置了一个快捷键（`ctrl+alt+cmd+o`），用 ssmacro 批量调用 regex.json 里的操作（可以有很多）处理当前选中的文档内容。而 regex.json 里的设置，就是各种基于正则表达式的中文排版脚本。
+上面这段配置的意思其实很简单：
 
-4. regex.json 配置 
+- 设置了一个快捷键（`ctrl+alt+cmd+o`）
+- 用 ssmacro 调用（批量执行）
+- 执行是输入一个名为 regex.json 的文件（包含若干基于**正则表达式**的中文排版脚本）
 
-如 github上对原文档所说：
+4. regex.json  下载安装（复制）
 
->  其中的 `“args”: {“file”:“regex.json”},` 有两种写法，一个是像这样用 `“file”:` 指定，那么这个文件应该在 `$HOME/.vscode/extensions/joekon.ssmacro-0.6.0/macros/` 文件夹内；第二种写法使用 `“path”:`，然后在其后设定批处理文件（`json`文件）的绝对路径。
+   如果想要 ssmacro 插件准确调用 regrex.json 文件，需要满足以下条件：
+
+>  上一步的 `“args”: {“file”:“regex.json”},` 有两种写法：
+>
+>  - 第一种：像上文中一样用 `“file”:` 指定，那么这个文件应该在 `$HOME/.vscode/extensions/joekon.ssmacro-0.6.0/macros/` 文件夹内；
+>  - 第二种：使用 `“path”:`，然后在其后设定批处理文件（`json`文件）的绝对路径。
 
 我用的是第一种方法。为了方便使用，我在飞书上传了一份 regex.json，可按照下面的步骤配置使用：
 
 - 打开浏览器，输入以下链接，点击下载（理论上会下载到 Download 文件夹） `https://s7wabnxfe5.feishu.cn/file/boxcnQ68ltBhpZ1V99nkS4jALrg`
 
-- 打开 terminal（在 VScode 里用快捷键` ctrl +` 可以打开它的内置terminal，当然你也用其他办法，比如用Spotlight打开）
+- 打开 terminal
 
 - 复制并粘贴以下命令到 terminal，回车
 
   ```cp $HOME/Downloads/regex.json $HOME/.vscode/extensions/joekon.ssmacro-0.6.0/macros/```
 
-  >  上面是一段本文唯一需要使用的脚本（代码），用来把下载好的 regex.json 文件，复制到 ssmacro 可以调用的目录下。
+  >  上面是一段本文唯一代码，用来把下载好的 regex.json 文件，复制到 ssmacro 可以调用的目录下。
   >
-  >  `cp`表示复制，然后是空格，紧接着是你下载好的 regex.json 的路径（如果你的系统语言是中文，可能要把上面的 Download 改为`下载`），再然后又是一个空格，最后是目标路径（我们希望存放 regex.json 的目录）
+  >  `cp`表示复制，然后是空格，紧接着是你下载好的 regex.json 的路径，再然后又是一个空格，最后是目标路径（我们希望存放 regex.json 的目录）
 
   运行后看 terminal 是否报错，没报错的话就没问题了。
 
 - 当然，你可以复制并粘贴以下命令到 terminal，回车，再检查一下。如果出现红框里的内容，则表示 regex.json 已经被拷贝到 ssmacro 目录下，可以被调用。
 
-  ```ls $HOME/.vscode/extensions/joekon.ssmacro-0.6.0/macros/regex.json ``
+  ``ls $HOME/.vscode/extensions/joekon.ssmacro-0.6.0/macros/regex.json ``
 
   ![image-20211212232557641](https://cdn.jsdelivr.net/gh/pierrelzw/blog_images/EyWSbLJmpeOrF46.png)
 
-6. 测试快捷键（上面设置的是`ctrl+alt+cmd+o`）。建议找一段有引号、破折号的翻译结果（中文）尝试一下：把标移动到翻译结果所在行任意位置，摁下快捷键看效果。
+6. 测试测试快捷键
+
+   打开 vscode，输入 `cmd+n`，vscode会创建一个新文件，复制以下内容并粘贴到新建的文件当中
+
+   ```markdown
+   这是一个“测试”——测试快捷键(keyboard shorcut)是否能生效
+   ```
+
+   ![image-20221030222038532](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030222038532.png)
+
+   把光标移动到上述文字所在行，摁下快捷键，应该有如下效果。
+
+   ![image-20221030222047505](/Users/lizhiwei/Library/Application Support/typora-user-images/image-20221030222047505.png)
+
+   - 双引号和之前的文字之间多了空格
+
+   - 中文、英文之间也多了一些空格
+     
+
+更多排版功能，可以自主查看 regrex.json 这个文件里的规则
+
+
 
 ## 三、后记
+
+2022-10-30
+
+再次更新这个教程的时候，没想到时间已经快过去 1 年了。
+
+- 2021年年底-2022年年初，我完成了 《World After Captial》全书的边阅读边翻译，这本书其实内容不多。不过我还是看了
+- 后来因为工作比较忙，我零碎地翻译
+
+2021-12-19
 
 走通这个流程后，我当天在走步机上走了大概 4 个小时。把《World After Captial》的第一部分看完了，也 “翻译” 完了。这个速度还是挺惊人的。之前我看了大半年，都没能真正看完一本原版书，现在半天就搞定一本书的 1/5 了。这本书总共 5 部分，如果每个部分文字数量差不多，按照这样的速度，我说不定能在年前把这本书看完。
 
@@ -232,7 +321,9 @@ end alfred_script
 
   > 这两步做完以后，快捷键都不需要了，正如那篇文章所说：《当翻译只剩文字编辑工作》……
 
-- 更进一步地，还可以设置用浏览器实时渲染查看。因为不作特殊设置的话，VSCode 无法显示 markdown 文本里的图片，网页显示是比较好的选择。
+- 更进一步地，还可以设置用浏览器实时渲染查看。因为不作特殊设置的话，VSCode 无法显示 markdown 文本里的图片，网页显示是比较好的选择
+
+- ……
 
 另外，我真的极度推荐这个开源仓库`https://github.com/xiaolai/apple-computer-literacy`简直到处是宝藏：
 
